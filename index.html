@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <link href="https://fonts.cdnfonts.com/css/whitney-2" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
       :root {
         --black: #23272A;
@@ -15,6 +16,7 @@
         --blue: #7289DA;
         --grey: #97A9B4;
         --white: #FFFFFF;
+        --indigo: #4B0082;
         --teal: #008080;
         --green: #2E8B57;
         --system-red: #f9443a;
@@ -33,7 +35,6 @@
 
       main {
         width: 50vw;
-        height: 500px;
         margin: 10vh 10px;
         display: flex;
         flex-direction: column;
@@ -89,30 +90,35 @@
       }
 
       .containers {
-        display: grid;
-        width: 100%;
-        grid-auto-rows: minmax(100px, auto);
-        grid-template-areas:
-          "av av ms ms ms ms ms ms ms"
-          "av av ms ms ms ms ms ms ms"
-          "av av ms ms ms ms ms ms ms"
-          "av av ac ac ac ac ac ac ac";
+        background-color: var(--dark-grey);
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
       }
 
-      .avatar, .message, .actions {
+      .avatar, .message {
         padding: var(--spacing);
       }
 
       .avatar {
-        grid-area: av;
         display: flex;
         justify-content: center;
-        padding: 20px 10px;
+        padding: 15px 10px;
+        flex: 0.5;
       }
 
       .message {
-        grid-area: ms;
+        flex: 3;
         padding-top: 15px;
+      }
+
+      .message-row {
+        display: flex;
+        flex-direction: row;
+        margin: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: var(--dark-grey);
+        border: 2px solid var(--teal);
       }
 
       .headshot {
@@ -120,14 +126,17 @@
         height: 100px;
         border-radius: 50%;
         background-color: white;
+        background-image: url('headshot.png');
+        background-position: center center;
+        background-size: cover;
       }
 
-      .actions {
-        grid-area: ac;
+      .actions-row {
         display: flex;
         flex-direction: row;
         gap: var(--spacing);
         align-items: flex-start;
+        margin: 10px;
       }
 
       .action-button {
@@ -164,9 +173,29 @@
       }
 
       .text {
-        padding-top: 5px;
+        padding-top: var(--spacing);
+        font-size: 1.25em;
+        width: 100%;
       }
 
+      .new {
+        background-color: var(--teal);
+        border: 1px solid var(--teal);
+      }
+
+      .randomize {
+        background-color: var(--teal);
+        border: 1px solid var(--teal);
+      }
+
+      .copy {
+        background-color: var(--teal);
+        border: 1px solid var(--teal);
+      }
+
+      i {
+        padding-right: 4px;
+      }
 
       /* Extra small devices (phones, 600px and down) */
       @media only screen and (max-width: 600px) {
@@ -216,22 +245,24 @@
           <div class="title">Joebe Generator - V1.0</div>
         </div>
         <div class="containers">
-          <div class="avatar">
-            <div class="headshot"></div>
+          <div class="actions-row">
+            <div id="new-button" onClick="handleClickNewQuote();" class="action-button new"><i class="fas fa-plus"></i> New Quote</div>
+            <div id="randomize-button" onClick="handleClickRandomizeQuote()" class="action-button randomize"><i class="fas fa-dice"></i> Randomize</div>
+            <div id="copy-button" class="action-button copy"><i class="fas fa-copy"></i> Copy To Clipboard</div>
           </div>
-          <div class="message">
-            <div class="user">
-              <div class="name">Joebe2</div>
-              <div id="timestamp" class="timestamp">Today at 5:30pm</div>
+          <div class="message-row">
+            <div class="avatar">
+              <div class="headshot"></div>
             </div>
-            <div id="text" class="text">
-              ...
+            <div class="message">
+              <div class="user">
+                <div class="name">Joebe2</div>
+                <div id="timestamp" class="timestamp">Today at 5:30pm</div>
+              </div>
+              <div id="text" class="text">
+                ...
+              </div>
             </div>
-          </div>
-          <div class="actions">
-            <div id="new-button" onClick="handleClickNewQuote();" class="action-button new">New Quote</div>
-            <div id="randomize-button" onClick="handleClickRandomizeQuote()" class="action-button randomize">Randomize</div>
-            <div id="copy-button" class="action-button copy">Copy To Clipboard</div>
           </div>
         </div>
       </div>
@@ -254,7 +285,17 @@
             {
               id: 'PLAYER',
               default: 'Scout god',
-              variations: ['HONEY', 'FLOBAL ELITE', 'SPiGOT', 'tad']
+              variations: ['HONEY', 'FLOBAL ELITE', 'SPiGOT', 'tad', 'protim', 'LukeDankwalker', 'FoolishWizrd']
+            }
+          ]
+        },
+        {
+          text: `Rip I went to sleep on the couch, |PLAYER| said we were waiting to play cs so I went and ate and layed down on the couch and now here we are`,
+          lookup: [
+            {
+              id: 'PLAYER',
+              default: 'Luke',
+              variations: ['HONEY', 'FLOBAL ELITE', 'SPiGOT', 'tad', 'protim', 'LukeDankwalker', 'FoolishWizrd']
             }
           ]
         }
@@ -357,11 +398,11 @@
           document.execCommand('copy');
           document.body.removeChild(textArea);
 
-          this.innerText = 'Copied!';
+          this.innerHTML = '<i class="fas fa-copy"></i> Copied!';
 
           setTimeout(() => {
-            this.innerText = 'Copy To Clipboard';
-          }, 1000);
+            this.innerHTML = '<i class="fas fa-copy"></i> Copy To Clipboard';
+          }, 800);
         });
 
         handleClickNewQuote()
