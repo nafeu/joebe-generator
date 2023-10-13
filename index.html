@@ -231,7 +231,7 @@
           <div class="actions">
             <div id="new-button" onClick="handleClickNewQuote();" class="action-button new">New Quote</div>
             <div id="randomize-button" onClick="handleClickRandomizeQuote()" class="action-button randomize">Randomize</div>
-            <div id="new-button" class="action-button copy">Copy To Clipboard</div>
+            <div id="copy-button" class="action-button copy">Copy To Clipboard</div>
           </div>
         </div>
       </div>
@@ -261,7 +261,7 @@
       ];
 
       var currentGenerator;
-      var textElement, timestampElement;
+      var textElement, timestampElement, copyButtonElement;
 
       function replacePlaceholdersWithRandomVariations(inputObject) {
         const { text, lookup } = inputObject;
@@ -344,6 +344,25 @@
       window.addEventListener('DOMContentLoaded', event => {
         textElement = document.getElementById('text');
         timestampElement = document.getElementById('timestamp');
+        copyButtonElement = document.getElementById('copy-button');
+
+        copyButtonElement.addEventListener('click', function() {
+          const textToCopy = textElement.innerText;
+
+          const textArea = document.createElement('textarea');
+          textArea.value = textToCopy;
+          document.body.appendChild(textArea);
+
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+
+          this.innerText = 'Copied!';
+
+          setTimeout(() => {
+            this.innerText = 'Copy To Clipboard';
+          }, 1000);
+        });
 
         handleClickNewQuote()
       });
