@@ -134,6 +134,17 @@
         padding: var(--spacing);
         background-color: black;
         border-radius: 5px;
+        border: 1px solid black;
+        cursor: pointer;
+        transition: 150ms ease-in-out all;
+      }
+
+      .action-button:hover {
+        border-color: white;
+      }
+
+      .action-button:active {
+        opacity: 0.25;
       }
 
       .user {
@@ -210,28 +221,132 @@
           </div>
           <div class="message">
             <div class="user">
-              <div class="name">Joebe</div>
+              <div class="name">Joebe2</div>
               <div id="timestamp" class="timestamp">Today at 5:30pm</div>
             </div>
             <div id="text" class="text">
-              It's a conspiracy I tell you
+              ...
             </div>
           </div>
           <div class="actions">
-            <div id="new-button" class="action-button new">New Quote</div>
-            <div id="randomize-button" class="action-button randomize">Randomize</div>
+            <div id="new-button" onClick="handleClickNewQuote();" class="action-button new">New Quote</div>
+            <div id="randomize-button" onClick="handleClickRandomizeQuote()" class="action-button randomize">Randomize</div>
             <div id="new-button" class="action-button copy">Copy To Clipboard</div>
           </div>
         </div>
       </div>
     </main>
     <script>
-      window.addEventListener('DOMContentLoaded', (event) => {
-        console.log('DOM fully loaded and parsed');
+      const GENERATORS = [
+        {
+          text: `I actually installed |GAME| last night`,
+          lookup: [
+            {
+              id: 'GAME',
+              default: 'valorant',
+              variations: ['overwatch', 'rainbow six seige', 'team fortress 2', 'counter-strike source']
+            }
+          ]
+        },
+        {
+          text: `Can't solo queue\nCan't play with the team\nGame broken\n|PLAYER| surrenders\n¯\\_(ツ)_/¯`,
+          lookup: [
+            {
+              id: 'PLAYER',
+              default: 'Scout god',
+              variations: ['HONEY', 'FLOBAL ELITE', 'SPiGOT', 'tad']
+            }
+          ]
+        }
+      ];
+
+      var currentGenerator;
+      var textElement, timestampElement;
+
+      function replacePlaceholdersWithRandomVariations(inputObject) {
+        const { text, lookup } = inputObject;
+
+        if (!text || !lookup || lookup.length === 0) {
+          return text;
+        }
+
+        const updatedText = text.replace(/\|([^|]+)\|/g, (match, placeholder) => {
+          const foundItem = lookup.find(item => item.id === placeholder);
+          if (foundItem && foundItem.variations && foundItem.variations.length > 0) {
+            const randomIndex = Math.floor(Math.random() * foundItem.variations.length);
+            return foundItem.variations[randomIndex];
+          } else {
+            return match;
+          }
+        });
+
+        return updatedText;
+      }
+
+      function replacePlaceholdersWithDefaults(inputObject) {
+        const { text, lookup } = inputObject;
+
+        if (!text || !lookup || lookup.length === 0) {
+          return text;
+        }
+
+        const updatedText = text.replace(/\|([^|]+)\|/g, (match, placeholder) => {
+          const foundItem = lookup.find(item => item.id === placeholder);
+          return foundItem ? foundItem.default : match;
+        });
+
+        return updatedText;
+      }
+
+      function getRandomElementFromArray(array) {
+        if (array.length === 0) {
+          return undefined; // Return undefined if the array is empty
+        }
+
+        const randomIndex = Math.floor(Math.random() * array.length);
+        return array[randomIndex];
+      }
+
+      function generateRandomTimestamp() {
+        const hours = Math.floor(Math.random() * 12) + 1; // Random hour from 1 to 12
+        const minutes = Math.floor(Math.random() * 60); // Random minute from 0 to 59
+        const period = Math.random() < 0.5 ? 'am' : 'pm'; // Randomly choose 'am' or 'pm'
+
+        // Format the time as 'h:mm[am|pm]'
+        const time = `${hours}:${minutes.toString().padStart(2, '0')}${period}`;
+        return time;
+      }
+
+      function getNewQuote() {
+        currentGenerator = getRandomElementFromArray(GENERATORS);
+
+        const quote = replacePlaceholdersWithDefaults(currentGenerator);
+
+        return quote;
+      }
+
+      function getRandomizedQuote() {
+        const quote = replacePlaceholdersWithRandomVariations(currentGenerator);
+
+        return quote;
+      }
+
+      function handleClickNewQuote() {
+        textElement.innerText = getNewQuote();
+        timestampElement.innerText = `Today at ${generateRandomTimestamp()}`;
+      }
+
+      function handleClickRandomizeQuote() {
+        textElement.innerText = getRandomizedQuote();
+        timestampElement.innerText = `Today at ${generateRandomTimestamp()}`;
+      }
+
+      window.addEventListener('DOMContentLoaded', event => {
+        textElement = document.getElementById('text');
+        timestampElement = document.getElementById('timestamp');
+
+        handleClickNewQuote()
       });
     </script>
-    <script id="__bs_script__">//<![CDATA[
-        document.write("<script async src='http://HOST:3002/browser-sync/browser-sync-client.js?v=2.27.11'><\/script>".replace("HOST", location.hostname));
-    //]]></script>
   </body>
 </html>
