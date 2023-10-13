@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>My Website</title>
+    <title>Joebe Generator</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <link href="https://fonts.cdnfonts.com/css/whitney-2" rel="stylesheet">
@@ -49,9 +49,12 @@
 
       .title-bar {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        justify-content: center;
         padding: var(--spacing);
+        height: 25px;
         border-bottom: 2px solid var(--black);
+        position: relative;
       }
 
       .title-bar-buttons {
@@ -59,6 +62,7 @@
         flex-direction: row;
         gap: var(--spacing);
         position: absolute;
+        top: var(--spacing);
       }
 
       .title {
@@ -83,6 +87,75 @@
       .fullscreen {
         background-color: var(--system-green);
       }
+
+      .containers {
+        display: grid;
+        width: 100%;
+        grid-auto-rows: minmax(100px, auto);
+        grid-template-areas:
+          "av av ms ms ms ms ms ms ms"
+          "av av ms ms ms ms ms ms ms"
+          "av av ms ms ms ms ms ms ms"
+          "av av ac ac ac ac ac ac ac";
+      }
+
+      .avatar, .message, .actions {
+        padding: var(--spacing);
+      }
+
+      .avatar {
+        grid-area: av;
+        display: flex;
+        justify-content: center;
+        padding: 20px 10px;
+      }
+
+      .message {
+        grid-area: ms;
+        padding-top: 15px;
+      }
+
+      .headshot {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: white;
+      }
+
+      .actions {
+        grid-area: ac;
+        display: flex;
+        flex-direction: row;
+        gap: var(--spacing);
+        align-items: flex-start;
+      }
+
+      .action-button {
+        padding: var(--spacing);
+        background-color: black;
+        border-radius: 5px;
+      }
+
+      .user {
+        display: flex;
+        flex-direction: row;
+        gap: var(--spacing);
+        align-items: flex-end;
+      }
+
+      .name {
+        color: var(--green);
+      }
+
+      .timestamp {
+        color: var(--grey);
+        font-size: 0.75em;
+      }
+
+      .text {
+        padding-top: 5px;
+      }
+
 
       /* Extra small devices (phones, 600px and down) */
       @media only screen and (max-width: 600px) {
@@ -130,6 +203,25 @@
             <div class="app-button fullscreen"></div>
           </div>
           <div class="title">Joebe Generator - V1.0</div>
+        </div>
+        <div class="containers">
+          <div class="avatar">
+            <div class="headshot"></div>
+          </div>
+          <div class="message">
+            <div class="user">
+              <div class="name">Joebe</div>
+              <div id="timestamp" class="timestamp">Today at 5:30pm</div>
+            </div>
+            <div id="text" class="text">
+              It's a conspiracy I tell you
+            </div>
+          </div>
+          <div class="actions">
+            <div id="new-button" class="action-button new">New Quote</div>
+            <div id="randomize-button" class="action-button randomize">Randomize</div>
+            <div id="new-button" class="action-button copy">Copy To Clipboard</div>
+          </div>
         </div>
       </div>
     </main>
