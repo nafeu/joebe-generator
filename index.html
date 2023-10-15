@@ -30,7 +30,243 @@
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <link href="https://fonts.cdnfonts.com/css/whitney-2" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <style>
+      :root {
+        --black: #23272A;
+        --dark-grey: #2C2F33;
+        --blue: #7289DA;
+        --grey: #97A9B4;
+        --white: #FFFFFF;
+        --indigo: #4B0082;
+        --teal: #008080;
+        --green: #2E8B57;
+        --system-red: #f9443a;
+        --system-yellow: #fad609;
+        --system-green: #30d158;
+        --spacing: 6px;
+      }
+
+      body {
+        font-family: 'Whitney', sans-serif;
+        background-color: var(--black);
+        color: var(--white);
+        display: flex;
+        justify-content: center;
+      }
+
+      main {
+        width: 50vw;
+        margin: 10vh 10px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .window {
+        background-color: var(--dark-grey);
+        flex: 1;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .title-bar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: var(--spacing);
+        height: 25px;
+        border-bottom: 2px solid var(--black);
+        position: relative;
+      }
+
+      .title-bar-buttons {
+        display: flex;
+        flex-direction: row;
+        gap: var(--spacing);
+        position: absolute;
+        top: var(--spacing);
+      }
+
+      .title {
+        text-align: center;
+        width: 100%;
+      }
+
+      .app-button {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+
+      .close {
+        background-color: var(--system-red);
+      }
+
+      .minimize {
+        background-color: var(--system-yellow);
+      }
+
+      .fullscreen {
+        background-color: var(--system-green);
+      }
+
+      .containers {
+        background-color: var(--dark-grey);
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+      }
+
+      .avatar, .message {
+        padding: var(--spacing);
+      }
+
+      .avatar {
+        display: flex;
+        justify-content: center;
+        padding: 15px 10px;
+        flex: 0.5;
+      }
+
+      .message {
+        flex: 3;
+        padding-top: 15px;
+      }
+
+      .message-row {
+        display: flex;
+        flex-direction: row;
+        margin: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: var(--dark-grey);
+        border: 2px solid var(--teal);
+      }
+
+      .headshot {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: white;
+        background-image: url('headshot.png');
+        background-position: center center;
+        background-size: cover;
+      }
+
+      .actions-row {
+        display: flex;
+        flex-direction: row;
+        gap: var(--spacing);
+        align-items: flex-start;
+        margin: 10px;
+      }
+
+      .action-button {
+        padding: var(--spacing);
+        background-color: black;
+        border-radius: 5px;
+        border: 1px solid black;
+        cursor: pointer;
+        transition: 150ms ease-in-out all;
+      }
+
+      .action-button:hover {
+        border-color: white;
+      }
+
+      .action-button:active {
+        opacity: 0.25;
+      }
+
+      .user {
+        display: flex;
+        flex-direction: row;
+        gap: var(--spacing);
+        align-items: flex-end;
+      }
+
+      .name {
+        color: var(--green);
+      }
+
+      .timestamp {
+        color: var(--grey);
+        font-size: 0.75em;
+      }
+
+      .text {
+        padding-top: var(--spacing);
+        font-size: 1.25em;
+        width: 100%;
+      }
+
+      .new {
+        background-color: var(--teal);
+        border: 1px solid var(--teal);
+      }
+
+      .randomize {
+        background-color: var(--teal);
+        border: 1px solid var(--teal);
+      }
+
+      .copy {
+        background-color: var(--teal);
+        border: 1px solid var(--teal);
+      }
+
+      .auto {
+        background-color: var(--teal);
+        border: 1px solid var(--teal);
+      }
+
+      .enabled {
+        background-color: var(--blue);
+        border: 1px solid var(--blue);
+      }
+
+      i {
+        padding-right: 4px;
+      }
+
+      .version {
+        color: var(--grey);
+      }
+
+      /* Extra small devices (phones, 600px and down) */
+      @media only screen and (max-width: 600px) {
+        main {
+          width: 100%;
+        }
+      }
+
+      /* Small devices (portrait tablets and large phones, 600px and up) */
+      @media only screen and (min-width: 600px) {
+        main {
+          width: 100%;
+        }
+      }
+
+      /* Medium devices (landscape tablets, 768px and up) */
+      @media only screen and (min-width: 768px) {
+        main {
+          width: 55vw;
+        }
+      }
+
+      /* Large devices (laptops/desktops, 992px and up) */
+      @media only screen and (min-width: 992px) {
+        main {
+          width: 50vw;
+        }
+      }
+
+      /* Extra large devices (large laptops and desktops, 1200px and up) */
+      @media only screen and (min-width: 1200px) {
+        main {
+          width: 40vw;
+        }
+      }
+    </style>
   </head>
   <body>
     <main>
@@ -68,6 +304,138 @@
       </div>
     </main>
     <script src="data.js"></script>
-    <script src="index.js"></script>
+    <script>
+      const EIGHT_HUNDRED_MS = 800;
+      const TEN_SECONDS_IN_MS = 10000;
+
+      let currentGenerator;
+      let textElement, timestampElement, copyButtonElement, autoButtonElement;
+
+      let autoJoebe = false;
+
+      function replacePlaceholdersWithRandomVariations(inputObject) {
+        const { text, lookup } = inputObject;
+
+        if (!text || !lookup || lookup.length === 0) {
+          return text;
+        }
+
+        const updatedText = text.replace(/\|([^|]+)\|/g, (match, placeholder) => {
+          const foundItem = lookup.find(item => item.id === placeholder);
+          if (foundItem && foundItem.variations && foundItem.variations.length > 0) {
+            const randomIndex = Math.floor(Math.random() * foundItem.variations.length);
+            return foundItem.variations[randomIndex];
+          } else {
+            return match;
+          }
+        });
+
+        return updatedText;
+      }
+
+      function replacePlaceholdersWithDefaults(inputObject) {
+        const { text, lookup } = inputObject;
+
+        if (!text || !lookup || lookup.length === 0) {
+          return text;
+        }
+
+        const updatedText = text.replace(/\|([^|]+)\|/g, (match, placeholder) => {
+          const foundItem = lookup.find(item => item.id === placeholder);
+          return foundItem ? foundItem.default : match;
+        });
+
+        return updatedText;
+      }
+
+      function getRandomElementFromArray(array) {
+        if (array.length === 0) {
+          return undefined; // Return undefined if the array is empty
+        }
+
+        const randomIndex = Math.floor(Math.random() * array.length);
+        return array[randomIndex];
+      }
+
+      function generateRandomTimestamp() {
+        const hours = Math.floor(Math.random() * 12) + 1; // Random hour from 1 to 12
+        const minutes = Math.floor(Math.random() * 60); // Random minute from 0 to 59
+        const period = Math.random() < 0.5 ? 'am' : 'pm'; // Randomly choose 'am' or 'pm'
+
+        // Format the time as 'h:mm[am|pm]'
+        const time = `${hours}:${minutes.toString().padStart(2, '0')}${period}`;
+        return time;
+      }
+
+      function getNewQuote() {
+        currentGenerator = getRandomElementFromArray(GENERATORS);
+
+        const quote = replacePlaceholdersWithDefaults(currentGenerator);
+
+        return quote;
+      }
+
+      function getRandomizedQuote() {
+        const quote = replacePlaceholdersWithRandomVariations(currentGenerator);
+
+        return quote;
+      }
+
+      function handleClickNewQuote() {
+        textElement.innerText = getNewQuote();
+        timestampElement.innerText = `Today at ${generateRandomTimestamp()}`;
+      }
+
+      function handleClickRandomizeQuote() {
+        textElement.innerText = getRandomizedQuote();
+        timestampElement.innerText = `Today at ${generateRandomTimestamp()}`;
+      }
+
+      function handleClickAutoJoebe() {
+        if (autoJoebe) {
+          autoJoebe = false;
+          autoButtonElement.classList.remove('enabled');
+          autoButtonElement.innerHTML = '<i class="fas fa-toggle-off"></i> Auto Joebe';
+        } else {
+          autoJoebe = true;
+          autoButtonElement.classList.add('enabled');
+          autoButtonElement.innerHTML = '<i class="fas fa-toggle-on"></i> Auto Joebe';
+        }
+      }
+
+      window.addEventListener('DOMContentLoaded', event => {
+        textElement = document.getElementById('text');
+        timestampElement = document.getElementById('timestamp');
+        copyButtonElement = document.getElementById('copy-button');
+        autoButtonElement = document.getElementById('auto-button');
+
+        copyButtonElement.addEventListener('click', function() {
+          const textToCopy = textElement.innerText;
+
+          const textArea = document.createElement('textarea');
+          textArea.value = textToCopy;
+          document.body.appendChild(textArea);
+
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+
+          this.innerHTML = '<i class="fas fa-copy"></i> Copied!';
+
+          setTimeout(() => {
+            this.innerHTML = '<i class="fas fa-copy"></i> Copy To Clipboard';
+          }, EIGHT_HUNDRED_MS);
+        });
+
+        handleClickNewQuote()
+
+        const interval = setInterval(() => {
+          if (autoJoebe) {
+            handleClickNewQuote();
+            handleClickRandomizeQuote();
+          }
+        }, TEN_SECONDS_IN_MS);
+      });
+    </script>
   </body>
 </html>
