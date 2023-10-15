@@ -1,5 +1,10 @@
-var currentGenerator;
-var textElement, timestampElement, copyButtonElement;
+const EIGHT_HUNDRED_MS = 800;
+const TEN_SECONDS_IN_MS = 10000;
+
+let currentGenerator;
+let textElement, timestampElement, copyButtonElement, autoButtonElement;
+
+let autoJoebe = false;
 
 function replacePlaceholdersWithRandomVariations(inputObject) {
   const { text, lookup } = inputObject;
@@ -79,10 +84,23 @@ function handleClickRandomizeQuote() {
   timestampElement.innerText = `Today at ${generateRandomTimestamp()}`;
 }
 
+function handleClickAutoJoebe() {
+  if (autoJoebe) {
+    autoJoebe = false;
+    autoButtonElement.classList.remove('enabled');
+    autoButtonElement.innerHTML = '<i class="fas fa-toggle-off"></i> Auto Joebe';
+  } else {
+    autoJoebe = true;
+    autoButtonElement.classList.add('enabled');
+    autoButtonElement.innerHTML = '<i class="fas fa-toggle-on"></i> Auto Joebe';
+  }
+}
+
 window.addEventListener('DOMContentLoaded', event => {
   textElement = document.getElementById('text');
   timestampElement = document.getElementById('timestamp');
   copyButtonElement = document.getElementById('copy-button');
+  autoButtonElement = document.getElementById('auto-button');
 
   copyButtonElement.addEventListener('click', function() {
     const textToCopy = textElement.innerText;
@@ -99,8 +117,15 @@ window.addEventListener('DOMContentLoaded', event => {
 
     setTimeout(() => {
       this.innerHTML = '<i class="fas fa-copy"></i> Copy To Clipboard';
-    }, 800);
+    }, EIGHT_HUNDRED_MS);
   });
 
   handleClickNewQuote()
+
+  const interval = setInterval(() => {
+    if (autoJoebe) {
+      handleClickNewQuote();
+      handleClickRandomizeQuote();
+    }
+  }, TEN_SECONDS_IN_MS);
 });

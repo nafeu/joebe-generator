@@ -181,6 +181,16 @@ main {
   border: 1px solid var(--teal);
 }
 
+.auto {
+  background-color: var(--teal);
+  border: 1px solid var(--teal);
+}
+
+.enabled {
+  background-color: var(--blue);
+  border: 1px solid var(--blue);
+}
+
 i {
   padding-right: 4px;
 }
