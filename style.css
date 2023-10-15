@@ -1,0 +1,225 @@
+:root {
+  --black: #23272A;
+  --dark-grey: #2C2F33;
+  --blue: #7289DA;
+  --grey: #97A9B4;
+  --white: #FFFFFF;
+  --indigo: #4B0082;
+  --teal: #008080;
+  --green: #2E8B57;
+  --system-red: #f9443a;
+  --system-yellow: #fad609;
+  --system-green: #30d158;
+  --spacing: 6px;
+}
+
+body {
+  font-family: 'Whitney', sans-serif;
+  background-color: var(--black);
+  color: var(--white);
+  display: flex;
+  justify-content: center;
+}
+
+main {
+  width: 50vw;
+  margin: 10vh 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.window {
+  background-color: var(--dark-grey);
+  flex: 1;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.title-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--spacing);
+  height: 25px;
+  border-bottom: 2px solid var(--black);
+  position: relative;
+}
+
+.title-bar-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing);
+  position: absolute;
+  top: var(--spacing);
+}
+
+.title {
+  text-align: center;
+  width: 100%;
+}
+
+.app-button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.close {
+  background-color: var(--system-red);
+}
+
+.minimize {
+  background-color: var(--system-yellow);
+}
+
+.fullscreen {
+  background-color: var(--system-green);
+}
+
+.containers {
+  background-color: var(--dark-grey);
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.avatar, .message {
+  padding: var(--spacing);
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  padding: 15px 10px;
+  flex: 0.5;
+}
+
+.message {
+  flex: 3;
+  padding-top: 15px;
+}
+
+.message-row {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: var(--dark-grey);
+  border: 2px solid var(--teal);
+}
+
+.headshot {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: white;
+  background-image: url('headshot.png');
+  background-position: center center;
+  background-size: cover;
+}
+
+.actions-row {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing);
+  align-items: flex-start;
+  margin: 10px;
+}
+
+.action-button {
+  padding: var(--spacing);
+  background-color: black;
+  border-radius: 5px;
+  border: 1px solid black;
+  cursor: pointer;
+  transition: 150ms ease-in-out all;
+}
+
+.action-button:hover {
+  border-color: white;
+}
+
+.action-button:active {
+  opacity: 0.25;
+}
+
+.user {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing);
+  align-items: flex-end;
+}
+
+.name {
+  color: var(--green);
+}
+
+.timestamp {
+  color: var(--grey);
+  font-size: 0.75em;
+}
+
+.text {
+  padding-top: var(--spacing);
+  font-size: 1.25em;
+  width: 100%;
+}
+
+.new {
+  background-color: var(--teal);
+  border: 1px solid var(--teal);
+}
+
+.randomize {
+  background-color: var(--teal);
+  border: 1px solid var(--teal);
+}
+
+.copy {
+  background-color: var(--teal);
+  border: 1px solid var(--teal);
+}
+
+i {
+  padding-right: 4px;
+}
+
+.version {
+  color: var(--grey);
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  main {
+    width: 100%;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  main {
+    width: 100%;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  main {
+    width: 55vw;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  main {
+    width: 50vw;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  main {
+    width: 40vw;
+  }
+}
