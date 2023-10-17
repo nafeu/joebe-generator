@@ -232,6 +232,11 @@
         color: var(--grey);
       }
 
+      .disabled {
+        opacity: 0.25;
+        cursor: not-allowed;
+      }
+
       /* Extra small devices (phones, 600px and down) */
       @media only screen and (max-width: 600px) {
         main {
@@ -277,7 +282,7 @@
             <div class="app-button minimize"></div>
             <div class="app-button fullscreen"></div>
           </div>
-          <div class="title">Joebe Generator <span class="version">v1.1.0</span></div>
+          <div class="title">Joebe Generator <span class="version">v1.2.0</span></div>
         </div>
         <div class="containers">
           <div class="actions-row">
@@ -303,13 +308,13 @@
         </div>
       </div>
     </main>
-    <script src="data.js"></script>
+    <script src="data.js?version=1"></script>
     <script>
       const EIGHT_HUNDRED_MS = 800;
       const TEN_SECONDS_IN_MS = 10000;
 
       let currentGenerator;
-      let textElement, timestampElement, copyButtonElement, autoButtonElement;
+      let textElement, timestampElement, copyButtonElement, autoButtonElement, randomizeButtonElement;
 
       let autoJoebe = false;
 
@@ -370,6 +375,12 @@
       function getNewQuote() {
         currentGenerator = getRandomElementFromArray(GENERATORS);
 
+        if (currentGenerator.lookup.length > 0) {
+          randomizeButtonElement.classList.remove('disabled');
+        } else {
+          randomizeButtonElement.classList.add('disabled');
+        }
+
         const quote = replacePlaceholdersWithDefaults(currentGenerator);
 
         return quote;
@@ -387,8 +398,10 @@
       }
 
       function handleClickRandomizeQuote() {
-        textElement.innerText = getRandomizedQuote();
-        timestampElement.innerText = `Today at ${generateRandomTimestamp()}`;
+        if (!randomizeButtonElement.classList.contains('disabled')) {
+          textElement.innerText = getRandomizedQuote();
+          timestampElement.innerText = `Today at ${generateRandomTimestamp()}`;
+        }
       }
 
       function handleClickAutoJoebe() {
@@ -408,6 +421,7 @@
         timestampElement = document.getElementById('timestamp');
         copyButtonElement = document.getElementById('copy-button');
         autoButtonElement = document.getElementById('auto-button');
+        randomizeButtonElement = document.getElementById('randomize-button');
 
         copyButtonElement.addEventListener('click', function() {
           const textToCopy = textElement.innerText;

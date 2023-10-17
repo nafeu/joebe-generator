@@ -1,0 +1,29 @@
+{
+  "name": "joebe-generator",
+  "version": "1.0.0",
+  "description": "A node based joebe content generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nafeu/joebe-generator.git"
+  },
+  "keywords": [
+    "joebe",
+    "content",
+    "copypasta",
+    "csgo"
+  ],
+  "author": "Nafeu Nasir (nafeu.nasir@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nafeu/joebe-generator/issues"
+  },
+  "homepage": "https://github.com/nafeu/joebe-generator#readme",
+  "dependencies": {
+    "moment": "^2.29.4"
+  }
+}
